@@ -66,3 +66,10 @@
         force-awake;
     };
 };
+
+/ {
+  chosen {
+    zmk,studio-rpc-uart = &cdc_acm_uart0;
+  };
+};
+
