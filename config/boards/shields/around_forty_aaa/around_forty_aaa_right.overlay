@@ -35,10 +35,12 @@
     };
 };
 
+/* 左側の listener は central 側では無効化 */
 &trackball_listener_L {
-    status = "okay";
+    status = "disabled";
 };
 
+/* 右側の listener だけ有効 */
 &trackball_listener_R {
     status = "okay";
     device = <&trackball_R>;
