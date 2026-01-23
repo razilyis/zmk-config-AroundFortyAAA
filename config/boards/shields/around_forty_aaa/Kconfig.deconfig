@@ -2,7 +2,7 @@ if SHIELD_AROUND_FORTY_AAA_RIGHT
 
 config ZMK_KEYBOARD_NAME
     string
-    default "AroundFortyAAA_R"
+    default "AroundFortyAAA"
 
 config ZMK_SPLIT
     default y
@@ -13,8 +13,6 @@ config ZMK_SPLIT_ROLE_CENTRAL
 endif
 
 if SHIELD_AROUND_FORTY_AAA_LEFT
-config ZMK_KEYBOARD_NAME
-    default "AroundFortyAAA_L"
 
 config ZMK_SPLIT
     default y
