@@ -1,0 +1,8 @@
+file_format: "1"
+id: AroundForty-AAA
+name: AroundForty-AAA
+type: shield
+url: https://github.com/razilyis/zmk-config-AroundFortyAAA
+requires: [seeeduino_xiao_ble]
+features:
+  - keys
