@@ -37,7 +37,7 @@
 
 /* 左側の listener は central 側では無効化 */
 &trackball_listener_L {
-    status = "disabled";
+    status = "okay";
 };
 
 /* 右側の listener だけ有効 */
