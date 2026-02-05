@@ -98,11 +98,8 @@
         compatible = "zmk,non-lipo-battery";
         status = "okay";
         io-channels = <&adc 0>;
-    
-        /* 昇圧後 VBUS_R を基準にする */
-        voltage-min = <4800>;  /* 4.8V ≒ EMPTY */
-        voltage-max = <5200>;  /* 5.2V ≒ FULL */
     };
+
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
