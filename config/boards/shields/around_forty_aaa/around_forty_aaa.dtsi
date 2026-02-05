@@ -99,12 +99,6 @@ aroundFortyaaa_physical_layout: aroundFortyaaa_physical_layout {
         io-channels = <&adc 0>;
     };
 
-    &adc {
-        status = "okay";
-    };
-
-
-
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <11>;
@@ -129,3 +123,7 @@ aroundFortyaaa_physical_layout: aroundFortyaaa_physical_layout {
                 ;
     };
 };
+
+    &adc {
+        status = "okay";
+    };
