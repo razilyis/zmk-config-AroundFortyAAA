@@ -90,6 +90,22 @@ aroundFortyaaa_physical_layout: aroundFortyaaa_physical_layout {
       status = "disabled";    
     };
 
+    vbatt: vbatt {
+        // Disable default battery monitoring
+        status = "disabled";
+    };
+    non_lipo_battery: non_lipo_battery {
+        compatible = "zmk,non-lipo-battery";
+        io-channels = <&adc 0>;
+    };
+
+    };
+
+    &adc {
+        status = "okay";
+    };
+
+
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
