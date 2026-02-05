@@ -57,3 +57,7 @@
         force-awake;
     };
 };
+
+&adc {
+    status = "okay";
+};
