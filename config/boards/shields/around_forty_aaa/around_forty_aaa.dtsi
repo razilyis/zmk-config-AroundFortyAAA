@@ -99,8 +99,6 @@ aroundFortyaaa_physical_layout: aroundFortyaaa_physical_layout {
         io-channels = <&adc 0>;
     };
 
-    };
-
     &adc {
         status = "okay";
     };
