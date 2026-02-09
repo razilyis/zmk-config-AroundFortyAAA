@@ -1,4 +1,5 @@
 #include "around_forty_aaa.dtsi"
+#include <dt-bindings/zmk/input_transform.h>
 
 &kscan0 {
     col-gpios
@@ -30,10 +31,7 @@
     };
 };
 
-&trackball_split_L {
-    status = "okay";
-    device = <&trackball_L>;
-};
+
 
 &spi0 {
     status = "okay";
@@ -51,11 +49,17 @@
         irq-gpios = <&gpio0 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         cpi = <400>;
         invert-y;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
         force-awake;
     };
+};
+
+&trackball_listener_L {
+    status = "okay";
+    device = <&trackball_L>;
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_xy_scaler 1 16>,
+                       <&zip_scroll_scaler 1 5>,
+                       <&zip_xy_to_scroll_mapper>;
 };
 
 &adc {

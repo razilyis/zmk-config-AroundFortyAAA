@@ -1,4 +1,5 @@
 #include "around_forty_aaa.dtsi"
+#include <dt-bindings/zmk/input_transform.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 &default_transform {
     col-offset = <6>;
@@ -39,11 +40,7 @@
     status = "okay";
 };
 
-/* 右側の listener だけ有効 */
-&trackball_listener_R {
-    status = "okay";
-    device = <&trackball_R>;
-};
+
 
 &spi0 {
     status = "okay";
@@ -61,11 +58,18 @@
         irq-gpios = <&gpio1 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         cpi = <400>;
         invert-y;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_Y>;
-        y-input-code = <INPUT_REL_X>;
         force-awake;
     };
+};
+
+/* 右側の listener だけ有効 */
+&trackball_listener_R {
+    status = "okay";
+    device = <&trackball_R>;
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_xy_scaler 1 16>,
+                       <&zip_scroll_scaler 1 5>,
+                       <&zip_xy_to_scroll_mapper>;
 };
 
 &adc {
