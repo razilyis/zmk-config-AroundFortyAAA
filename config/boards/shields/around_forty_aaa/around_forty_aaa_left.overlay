@@ -61,13 +61,7 @@
     device = <&trackball_L>;
 };
 
-&trackball_listener_L {
-    status = "okay";
-     /* device defaults to trackball_split_L from dtsi */
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_xy_scaler 1 16>,
-                       <&zip_xy_to_scroll_mapper>;
-};
+
 
 &adc {
     status = "okay";
