@@ -19,16 +19,6 @@
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
         };
-
-        Lang1 {
-            bindings = <&kp LANGUAGE_1>;
-            key-positions = <13 12>;
-        };
-
-        Lang2 {
-            bindings = <&kp LANGUAGE_2>;
-            key-positions = <16 17>;
-        };
     };
 
     macros {
