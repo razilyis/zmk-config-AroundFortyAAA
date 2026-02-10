@@ -8,8 +8,6 @@ manifest:
       url-base: https://github.com/badjeff
     - name: caksoylar
       url-base: https://github.com/caksoylar
-    - name: prospector
-      url-base: https://github.com/t-ogura
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
   projects:
@@ -23,10 +21,6 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: main
-    - name: prospector-zmk-module
-      remote: prospector
-      revision: v2.0.0
-      path: modules/prospector-zmk-module
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
       revision: main
