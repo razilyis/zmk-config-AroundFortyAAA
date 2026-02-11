@@ -71,6 +71,16 @@
     };
 };
 
+/ {
+    /* X軸の移動量を強制的に0にするプロセッサ（垂直スクロール限定モード用） */
+    zip_x_scaler_zero: zip_x_scaler_zero {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>;
+    };
+};
+
 /* 右側の listener だけ有効 */
 &trackball_listener_R {
     status = "okay";
@@ -78,18 +88,28 @@
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
                        <&zip_xy_scaler 1 1>;
 
-    /* レイヤー 2, 3 はスローカーソル動作 */
+    /* レイヤー 2, 3 はスローカーソル動作 (RBに合わせて 1/2) */
     slow-cursor-layer {
         layers = <2 3>;
-        input-processors = <&zip_xy_scaler 1 4>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                           <&zip_xy_scaler 1 2>;
     };
 
-    /* レイヤー 6, 7 は縦限定スクロール動作 */
+    /* レイヤー 6 は通常スクロール動作 */
     scroll-layer {
-        layers = <6 7>;
-        input-processors = <&zip_xy_scaler 0 1>,           /* X軸入力をゼロにして縦のみに限定 */
+        layers = <6>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
                            <&zip_xy_to_scroll_mapper>,
-                           <&zip_scroll_scaler 1 48>;      /* 感度は適宜調整 */
+                           <&zip_scroll_scaler 1 48>;
+    };
+
+    /* レイヤー 7 は縦限定スクロール動作 */
+    v-scroll-layer {
+        layers = <7>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                           <&zip_x_scaler_zero 0 1>,
+                           <&zip_xy_to_scroll_mapper>,
+                           <&zip_scroll_scaler 1 48>;
     };
 };
 
