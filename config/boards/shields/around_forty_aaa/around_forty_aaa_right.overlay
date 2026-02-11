@@ -77,6 +77,20 @@
     device = <&trackball_R>;
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
                        <&zip_xy_scaler 1 1>;
+
+    /* レイヤー 2, 3 はスローカーソル動作 */
+    slow-cursor-layer {
+        layers = <2 3>;
+        input-processors = <&zip_xy_scaler 1 4>;
+    };
+
+    /* レイヤー 6, 7 は縦限定スクロール動作 */
+    scroll-layer {
+        layers = <6 7>;
+        input-processors = <&zip_xy_scaler 0 1>,           /* X軸入力をゼロにして縦のみに限定 */
+                           <&zip_xy_to_scroll_mapper>,
+                           <&zip_scroll_scaler 1 48>;      /* 感度は適宜調整 */
+    };
 };
 
 &adc {
