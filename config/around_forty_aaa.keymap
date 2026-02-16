@@ -111,7 +111,7 @@
             bindings = <
 &kp LG(A)       &kp LG(X)     &kp LG(C)    &kp LG(V)  &kp LG(F)  &kp LESS_THAN         &kp GREATER_THAN       &kp CARET          &kp PERCENT      &kp DOLLAR
 &kp TAB         &kp LEFT_GUI  &kp LS(TAB)  &mkp MB1   &mkp MB2   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN        &kp AMPERSAND    &kp DOUBLE_QUOTES
-&kp LEFT_SHIFT  &trans        &trans       &trans     &mkp MB3   &trans                &kp LEFT_BRACKET       &kp RIGHT_BRACKET  &kp EXCLAMATION  &kp QUESTION       &kp SINGLE_QUOTE
+&kp LEFT_SHIFT  &trans        &trans       &trans     &mkp MB3   &kp LG(R)             &kp LEFT_BRACKET       &kp RIGHT_BRACKET  &kp EXCLAMATION  &kp QUESTION       &kp SINGLE_QUOTE
 &kp LCTRL       &trans        &trans       &trans     &trans     &trans                &trans                 &trans             &kp BACKSPACE    &kp ENTER          &kp HASH
             >;
         };
