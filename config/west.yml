@@ -10,6 +10,8 @@ manifest:
       url-base: https://github.com/caksoylar
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
+    - name: zettaface
+      url-base: https://github.com/zettaface
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -23,6 +25,9 @@ manifest:
       revision: v0.3-branch
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
+      revision: main
+    - name: zmk-input-processor-keybind
+      remote: zettaface
       revision: main
   self:
     path: config
