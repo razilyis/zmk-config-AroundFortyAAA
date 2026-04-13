@@ -42,7 +42,6 @@
 &trackball_listener_L {
     status = "okay";
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP |
-                                           INPUT_TRANSFORM_X_INVERT |
                                            INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_xy_scaler 1 64>,
                        <&zip_xy_to_scroll_mapper>;
@@ -112,8 +111,7 @@
     /* レイヤー 6 は通常スクロール動作 */
     scroll-layer {
         layers = <6>;
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
-                           <&zip_xy_to_scroll_mapper>,
+        input-processors = <&zip_xy_to_scroll_mapper>,
                            <&zip_scroll_scaler 1 48>;
     };
 
@@ -129,7 +127,8 @@
     /* レイヤー 10 はトラックボールを矢印キー入力として扱う */
     arrows {
         layers = <10>;
-        input-processors = <&zip_keybind_arrows>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                           <&zip_keybind_arrows>;
     };
 };
 
