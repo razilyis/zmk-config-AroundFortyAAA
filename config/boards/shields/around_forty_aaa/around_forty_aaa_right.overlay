@@ -67,6 +67,12 @@
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
+        inertial-scroll;
+        inertial-scroll-layers = <6 7>;
+        inertial-scroll-gain-pct = <130>;
+        inertial-scroll-decay-pct = <99>;
+        inertial-scroll-interval-ms = <10>;
+        inertial-scroll-threshold = <4>;
         force-awake;
     };
 };
