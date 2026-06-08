@@ -4,6 +4,27 @@
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+
+&adc {
+    status = "okay";
+};
+
+/ {
+    chosen {
+        zmk,battery = &non_lipo_battery;
+    };
+
+    non_lipo_battery: non_lipo_battery {
+        compatible = "zmk,non-lipo-battery";
+
+        /*
+         * XIAO nRF52840 の D0 / A0 / P0.02 は
+         * nRF SAADC の AIN0 相当として扱う想定
+         */
+        io-channels = <&adc 0>;
+    };
+};
+
 &default_transform {
     col-offset = <6>;
 };
