@@ -10,8 +10,6 @@ manifest:
       url-base: https://github.com/caksoylar
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
-    - name: te9no
-      url-base: https://github.com/te9no
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -27,7 +25,7 @@ manifest:
       remote: sekigon-gonnoc
       revision: main
     - name: zmk-input-processor-keybind
-      remote: te9no
+      remote: razilyis
       revision: main
   self:
     path: config
