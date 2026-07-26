@@ -26,6 +26,6 @@ manifest:
       revision: main
     - name: zmk-input-processor-keybind
       remote: razilyis
-      revision: main
+      revision: modify
   self:
     path: config
