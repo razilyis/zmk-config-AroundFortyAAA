@@ -1,6 +1,15 @@
 # 開発履歴 (history.md)
 
 ## 2026-07-31
+### 実施内容: dev-mainのPMW3610暴走対策版を再ビルド
+- **目的**: `Dev-v0.3_inertial-scroll`の最新暴走対策をAAAのGitHub Actionsビルドへ反映する。
+- `config/west.yml`の`zmk-pmw3610-driver`をコミット`c74b37c526547fa7931c9e855362176599fdeae1`へ更新。
+- **影響範囲**:
+  - board: `seeeduino_xiao_ble`
+  - shield: `around_forty_aaa_right` / `around_forty_aaa_left`
+  - split: 右Central / 左Peripheral。
+  - レイヤー、キー配置、CPI、XY変換、SPI/IRQ配線、BLE設定は変更なし。
+
 ### 実施内容: dev-mainのPMW3610微小振動フィルタを明示
 - **目的**: 打鍵・クリック時の微小振動をPMW3610のカーソル・スクロール入力として扱わないようにする。
 - 左右PMW3610へ`motion-threshold = <1>`を明示。
