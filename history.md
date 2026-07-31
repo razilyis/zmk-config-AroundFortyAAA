@@ -1,5 +1,19 @@
 # 開発履歴 (history.md)
 
+## 2026-07-31
+### 実施内容: dev-main単一カーソル構成のGitHub Actions再検証
+- **目的**: `dev-dual_cursor`で発生したカーソル暴走を切り分けるため、左手をスクロール専用、右手をカーソルとする`dev-main`を再ビルドする。
+- **PMW3610依存**:
+  - `config/west.yml`は`razilyis/zmk-pmw3610-driver`の`Dev-v0.3_inertial-scroll`を参照。
+  - 記録時点のリモート解決コミットは`cda53a8cc6e491a6622ac8d3a23df56d97bc41c3`。
+- **影響範囲**:
+  - board: `seeeduino_xiao_ble`
+  - shield: `around_forty_aaa_right` / `around_forty_aaa_left`
+  - split: 右Central / 左Peripheral。
+  - 右PMW3610は通常カーソルとレイヤー6・7の慣性スクロール。
+  - 左PMW3610はCentral側でスクロールへ変換し、カーソルとしては使用しない。
+  - キー配置、CPI、SPI/IRQ、BLE設定は変更なし。
+
 ## 2026-04-14
 ### 実施内容: Dev-v0.3_inertial-scroll-v2 の適用
 - **目的**: AroundForty-AAA 右手トラックボールに PMW3610 driver の慣性スクロール対応ブランチを適用する。
