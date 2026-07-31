@@ -1,6 +1,17 @@
 # 開発履歴 (history.md)
 
 ## 2026-07-31
+### 実施内容: dev-mainのPMW3610微小振動フィルタを明示
+- **目的**: 打鍵・クリック時の微小振動をPMW3610のカーソル・スクロール入力として扱わないようにする。
+- 左右PMW3610へ`motion-threshold = <1>`を明示。
+- AAA `dev-main`では未指定時もドライバ既定値`1`だったため、動作を固定・可視化する変更。
+- **影響範囲**:
+  - board: `seeeduino_xiao_ble`
+  - shield: `around_forty_aaa_right` / `around_forty_aaa_left`
+  - split: 右Central / 左Peripheral。
+  - 左右トラックボールを使用する全レイヤー。
+  - CPI、XY変換、キー配置、SPI/IRQ、BLE設定は変更なし。
+
 ### 実施内容: dev-main単一カーソル構成のGitHub Actions再検証
 - **目的**: `dev-dual_cursor`で発生したカーソル暴走を切り分けるため、左手をスクロール専用、右手をカーソルとする`dev-main`を再ビルドする。
 - **PMW3610依存**:
