@@ -1,6 +1,24 @@
 # 開発履歴 (history.md)
 
 ## 2026-07-31
+### 実施内容: dev-mainの左手スクロール感度を2倍化
+- **目的**: 左手トラックボールのスクロール移動量を従来の2倍にする。
+- 左手入力を処理する`trackball_listener_L`の`zip_xy_scaler`を`1/64`から`1/32`へ変更。
+- **影響範囲**:
+  - board: `seeeduino_xiao_ble`
+  - shield: `around_forty_aaa_right`（左手入力を処理する右Central）
+  - split: 左Peripheralから届くトラックボール入力のCentral側変換のみ。
+  - 左手の縦横スクロール感度のみ変更。右手のカーソル・スクロール、キー配置、BLE設定は変更なし。
+
+### 実施内容: dev-mainの左手上下スクロール方向を反転
+- **目的**: 左手トラックボールの上下スクロール方向だけを従来と逆にする。
+- 右Centralの`trackball_listener_L`から`INPUT_TRANSFORM_Y_INVERT`を削除し、`INPUT_TRANSFORM_XY_SWAP`は維持。
+- **影響範囲**:
+  - board: `seeeduino_xiao_ble`
+  - shield: `around_forty_aaa_right`（左手入力を処理する右Central）
+  - split: 左Peripheralから届くトラックボール入力のCentral側変換のみ。
+  - 左手の上下スクロール方向のみ変更。横スクロール、倍率、右手カーソル、レイヤー、キー配置、BLE設定は変更なし。
+
 ### 実施内容: dev-mainのPMW3610暴走対策版を再ビルド
 - **目的**: `Dev-v0.3_inertial-scroll`の最新暴走対策をAAAのGitHub Actionsビルドへ反映する。
 - `config/west.yml`の`zmk-pmw3610-driver`をコミット`c74b37c526547fa7931c9e855362176599fdeae1`へ更新。

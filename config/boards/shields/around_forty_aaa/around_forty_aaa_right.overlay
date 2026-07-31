@@ -62,9 +62,8 @@
 /* 左側の listener は central 側では無効化 */
 &trackball_listener_L {
     status = "okay";
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP |
-                                           INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_xy_scaler 1 64>,
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>,
+                       <&zip_xy_scaler 1 32>,
                        <&zip_xy_to_scroll_mapper>;
 };
 
