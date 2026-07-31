@@ -4,8 +4,8 @@
 ### 実施内容: dev-main単一カーソル構成のGitHub Actions再検証
 - **目的**: `dev-dual_cursor`で発生したカーソル暴走を切り分けるため、左手をスクロール専用、右手をカーソルとする`dev-main`を再ビルドする。
 - **PMW3610依存**:
-  - `config/west.yml`は`razilyis/zmk-pmw3610-driver`の`Dev-v0.3_inertial-scroll`を参照。
-  - 記録時点のリモート解決コミットは`cda53a8cc6e491a6622ac8d3a23df56d97bc41c3`。
+  - `config/west.yml`は`razilyis/zmk-pmw3610-driver`の`Dev-v0.3_inertial-scroll`で検証した修正版を参照。
+  - 再現可能なビルドのため、リモートコミット`fe219c7eb267050fff6743f00b51c7cf6b029839`へ固定。
 - **影響範囲**:
   - board: `seeeduino_xiao_ble`
   - shield: `around_forty_aaa_right` / `around_forty_aaa_left`
