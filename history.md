@@ -1,6 +1,17 @@
 # 開発履歴 (history.md)
 
 ## 2026-07-31
+### 実施内容: 左スクロールの異常値上限を追加
+- **目的**: 左PMW3610の中規模な異常デルタが、Central側のスクロール変換で大きなホイール移動になることを防ぐ。
+- 左PMW3610へ`max-motion-delta = <128>`と`max-report-delta = <128>`を追加。
+- westのPMW3610慣性スクロール版を`e3d60ed`へ更新し、SPIタイミング修正と蓄積デルタ保護を取り込み。
+- 左スクロールの`1/32`感度とXY変換、右手のカーソル・スクロール設定は維持。
+- **影響範囲**:
+  - board: `seeeduino_xiao_ble`
+  - shield: `around_forty_aaa_left`（Peripheralの左PMW3610）
+  - 変換処理: `around_forty_aaa_right`（Centralの`trackball_listener_L`、設定変更なし）
+  - レイヤー、キー配置、BLE接続数、スタック、ACLバッファは変更なし。
+
 ### 実施内容: dev-mainの左手スクロール感度を2倍化
 - **目的**: 左手トラックボールのスクロール移動量を従来の2倍にする。
 - 左手入力を処理する`trackball_listener_L`の`zip_xy_scaler`を`1/64`から`1/32`へ変更。

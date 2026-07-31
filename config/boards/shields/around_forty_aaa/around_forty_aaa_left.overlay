@@ -51,6 +51,8 @@
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
         motion-threshold = <1>;
+        max-motion-delta = <128>;
+        max-report-delta = <128>;
         force-awake;
     };
 };
