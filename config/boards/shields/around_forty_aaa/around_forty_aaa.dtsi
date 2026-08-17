@@ -119,3 +119,9 @@
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 };
+
+/* NFC ピン（P0.09 / P0.10）を GPIO として再利用する
+ * Zephyr 4.1 で CONFIG_NFCT_PINS_AS_GPIOS は削除され、devicetree 指定に変更された */
+&uicr {
+    nfct-pins-as-gpios;
+};

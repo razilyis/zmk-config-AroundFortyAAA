@@ -1,60 +1,44 @@
-# zmk-config-AroundFortyAAA
+# zmk-config-AroundFortyAAA (zmk-v0.4_inertial-scroll)
 
-Around Forty AAA 用の ZMK ファームウェア設定です。  
-Split 構成（Right: Central / Left: Peripheral）で、トラックボールと ZMK Studio に対応しています。
+Around Forty AAA の ZMK v0.4（Zephyr 4.1）対応＋**慣性スクロール・制御Behavior・単四電池電源管理** 搭載版ファームウェアです。
 
-## このリポジトリの位置づけ
-
-- `main`: 安定運用向け
-- `dev-main`: 開発・調整中（`main` と一部動作が異なる）
+本ブランチは、**ZMK v0.4 (Zephyr 4.1)** 環境において `razilyis/zmk-pmw3610-driver`（`Dev-v0.4_inertial-scroll` ブランチ）を採用し、左右デュアルトラックボールおよび単四Ni-MH電池向け昇圧電源管理（`zmk-feature-non-lipo-battery-management`）を維持した最新統合開発ブランチです。
 
 ---
 
-## 主な特徴
+## 主な実装内容・特徴
 
-- ZMK Firmware `v0.3` 対応
-- PMW3610 ドライバに `badjeff/zmk-pmw3610-driver` を採用
-- ZMK Studio 対応
-- IME 切り替えマクロを搭載
-  - Windows: `Alt + Grave (~)`
-  - macOS: `Ctrl + Space`
-- RGB LED ウィジェット連携
-- Non-LiPo Battery Management（AAA 電池運用）対応
+### 🟢 慣性スクロール & 低速スタビライザー (ZMK v0.4 対応)
+- **自然な慣性スクロール**: レイヤー 6/7 でのスクロール操作時に、指を離した後も心地よい減速を伴う慣性スクロールを実行
+- **低速カーソル安定化 (`low-speed-stabilizer`)**: 微小な手振れやノイズを相殺し、精密なポインティングを実現
+- **制御Behaviorのサポート**:
+  - `&pmw3610_inertia_toggle`: 慣性スクロールの ON / OFF 切り替え
+  - `&pmw3610_scroll_direction_toggle`: 縦スクロール方向の正転 / 反転切り替え
+  - `&pmw3610_horizontal_scroll_direction_toggle`: 横スクロール方向の正転 / 反転切り替え
 
----
+### 🟢 左右デュアルトラックボール (Left & Right Trackball)
+- **右Centralトラックボール (`trackball_R`)**: 通常カーソル、Slow Cursor（Layer 2, 3）、通常スクロール（Layer 6）、縦限定スクロール（Layer 7）、矢印キー操作（Layer 10）
+- **左Peripheralトラックボール (`trackball_L`)**: Central側で受け取りスクロール変換処理を実行
 
-## `dev-main` の特徴（`main` との差分）
+### 🟢 単四Ni-MH電池 昇圧電源管理 (Non-LiPo Battery Management)
+- **単四電池 1本 + TPS61021A 昇圧 + ADC分圧監視**:
+  - `CONFIG_ZMK_NON_LIPO_BATTERY_MANAGEMENT=y`
+  - `CONFIG_ZMK_NON_LIPO_MIN_MV=320` (1.00V相当)
+  - `CONFIG_ZMK_NON_LIPO_MAX_MV=448` (1.40V相当)
+  - `CONFIG_ZMK_NON_LIPO_LOW_MV=304` (0.95V相当シャットダウン)
 
-### 1. トラックボールのレイヤー別挙動を強化
-
-`dev-main` では、右側トラックボールにレイヤー別プロセッサを追加しています。
-
-- Layer `2`, `3`: Slow Cursor（低速・精密カーソル）
-- Layer `6`: Scroll（通常スクロール）
-- Layer `7`: Vertical Scroll（縦スクロール限定）
-
-> `main` では上記のレイヤー別挙動は未実装（通常カーソル挙動のみ）。
-
-### 2. AAA 電池向けの電圧レンジを再調整
-
-Non-LiPo バッテリー設定を、単四 1 本 + TPS61021A 昇圧構成に合わせて更新。
-
-- `CONFIG_ZMK_NON_LIPO_MIN_MV=320`
-- `CONFIG_ZMK_NON_LIPO_MAX_MV=480`
-- `CONFIG_ZMK_NON_LIPO_LOW_MV=304`
-
-> `main` の旧設定（352/448/0）より、実運用に寄せた閾値へ調整。
+### 🟢 ZMK v0.4 (Zephyr 4.1) への移行
+- **最新 Zephyr 4.1 対応**: ZMK main（Zephyr 4.1 系統）を pin し、新規格に適合
+- **新ボード定義形式への対応**: ボード指定を `xiao_ble//zmk`、インターコネクト ID を `seeed_xiao` に更新
+- **Devicetree での NFC ピン GPIO 化**: Zephyr 4.1 での Kconfig 廃止に伴い、P0.09 / P0.10 の GPIO 再利用指定を DTS（`&uicr`）へ移行
+- **外部モジュールの Zephyr 4.1 追従**:
+  - `razilyis/zmk-pmw3610-driver` (`Dev-v0.4_inertial-scroll`): Zephyr 4.1 上流との衝突回避のため `pixart,pmw3610-alt` / `CONFIG_PMW3610_ALT_*` に完全追従
 
 ---
 
-## 現在の注意点
+## クレジット・謝辞 (Credits & Respect)
 
-- Prospector Scanner 対応は見送り中です。  
-  理由: Bluetooth 接続が不安定になりやすいため。
-
----
-
-## 補足
-
-- キーマップは Windows / macOS の両系統レイヤーを用意
-- 設定レイヤーから Bluetooth プロファイル切り替え・クリア・リセット操作が可能
+- **[badjeff](https://github.com/badjeff)**
+  - ZMK 用 PMW3610 ドライバおよび慣性スクロールエンジンの開発者。
+- **[sekigon-gonnoc](https://github.com/sekigon-gonnoc)**
+  - Non-LiPo 電池管理モジュールの開発者。

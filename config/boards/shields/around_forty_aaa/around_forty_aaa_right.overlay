@@ -93,6 +93,7 @@
         inertial-scroll-decay-pct = <99>;
         inertial-scroll-interval-ms = <10>;
         inertial-scroll-threshold = <4>;
+        low-speed-stabilizer;
         motion-threshold = <1>;
         force-awake;
     };

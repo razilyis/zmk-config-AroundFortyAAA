@@ -1,5 +1,19 @@
 # 開発履歴 (history.md)
 
+## 2026-08-17
+### 実施内容: `zmk-v0.4_inertial-scroll` ブランチの作成 (ZMK v0.4 / Zephyr 4.1 & PMW3610 Inertial Scroll)
+- **目的**: AroundForty-AAA にて ZMK v0.4 (Zephyr 4.1) および `razilyis/zmk-pmw3610-driver` (`Dev-v0.4_inertial-scroll`) への対応を実施。
+- **ブランチ**: `zmk-v0.4_inertial-scroll` (ベース: `main`)
+- **主な変更点**:
+  - `config/west.yml`: `zmk` を `6e2ef41e` (ZMK main / Zephyr 4.1)、`zmk-pmw3610-driver` を `Dev-v0.4_inertial-scroll`、`zmk-rgbled-widget` を `e6b4677` に更新。
+  - `build.yaml`: ボード ID を `xiao_ble//zmk` に更新。
+  - `around_forty_aaa.zmk.yml`: `requires: [seeed_xiao]` に更新。
+  - `around_forty_aaa.dtsi`: `&uicr { nfct-pins-as-gpios; };` を追加。
+  - `around_forty_aaa_left.conf` / `around_forty_aaa_right.conf`: `CONFIG_NFCT_PINS_AS_GPIOS=y` を削除、`CONFIG_BT_HCI_TX_STACK_SIZE_WITH_PROMPT=y` を追加、Kconfig シンボルを `CONFIG_PMW3610_ALT_*` へ更新。
+  - **維持事項**: 単四Ni-MH電池用電源管理 (`CONFIG_ZMK_NON_LIPO_*` 320〜448mV)、左右デュアルトラックボール制御構造。
+  - `around_forty_aaa_left.overlay` / `around_forty_aaa_right.overlay`: PMW3610 compatible を `pixart,pmw3610-alt` へ更新。右トラックボールに `low-speed-stabilizer;` を追加。
+  - `around_forty_aaa.keymap`: PMW3610 制御 behavior dtsi インクルードを追加。
+
 ## 2026-07-31
 ### 実施内容: 左スクロールの異常値上限を追加
 - **目的**: 左PMW3610の中規模な異常デルタが、Central側のスクロール変換で大きなホイール移動になることを防ぐ。
