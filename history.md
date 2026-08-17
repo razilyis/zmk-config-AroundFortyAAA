@@ -11,6 +11,7 @@
   - `around_forty_aaa.dtsi`: `&uicr { nfct-pins-as-gpios; };` を追加。
   - `around_forty_aaa_left.conf` / `around_forty_aaa_right.conf`: `CONFIG_NFCT_PINS_AS_GPIOS=y` を削除、`CONFIG_BT_HCI_TX_STACK_SIZE_WITH_PROMPT=y` を追加、Kconfig シンボルを `CONFIG_PMW3610_ALT_*` へ更新。
   - **維持事項**: 単四Ni-MH電池用電源管理 (`CONFIG_ZMK_NON_LIPO_*` 320〜448mV)、左右デュアルトラックボール制御構造。
+  - **ドライバー補正**: `zmk-pmw3610-driver` (`Dev-v0.4_inertial-scroll`) にて Peripheral ビルド時の `zmk_layer_state_changed` 未定義リンカーエラー回避を適用。
   - `around_forty_aaa_left.overlay` / `around_forty_aaa_right.overlay`: PMW3610 compatible を `pixart,pmw3610-alt` へ更新。右トラックボールに `low-speed-stabilizer;` を追加。
   - `around_forty_aaa.keymap`: PMW3610 制御 behavior dtsi インクルードを追加。
 
