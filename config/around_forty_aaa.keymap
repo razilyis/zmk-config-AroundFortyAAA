@@ -59,6 +59,24 @@
     };
 
     behaviors {
+        pmw3610_inertia_toggle: pmw3610_inertia_toggle {
+            compatible = "zmk,behavior-pmw3610-inertia-toggle";
+            #binding-cells = <0>;
+            display-name = "PMW3610 Inertia Toggle";
+        };
+
+        pmw3610_scroll_direction_toggle: pmw3610_scroll_direction_toggle {
+            compatible = "zmk,behavior-pmw3610-scroll-direction-toggle";
+            #binding-cells = <0>;
+            display-name = "PMW3610 Vertical Scroll Direction Toggle";
+        };
+
+        pmw3610_horizontal_scroll_direction_toggle: pmw3610_horizontal_scroll_direction_toggle {
+            compatible = "zmk,behavior-pmw3610-horizontal-scroll-direction-toggle";
+            #binding-cells = <0>;
+            display-name = "PMW3610 Horizontal Scroll Direction Toggle";
+        };
+
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_TO_0";
@@ -82,19 +100,19 @@
 
         Win-Base {
             bindings = <
-&kp Q             &kp W     &kp E     &kp R                 &kp T        &kp Y             &kp U  &kp I        &kp O          &kp P
-&kp A             &kp S     &kp D     &kp F                 &kp G        &kp H             &kp J  &kp K        &kp L          &lt 7 MINUS
-&mt LEFT_SHIFT Z  &kp X     &kp C     &kp V                 &kp B        &ime_tog          &kp N  &kp M        &kp COMMA      &kp DOT      &mt RIGHT_SHIFT SLASH
-&kp LCTRL         &kp LGUI  &kp LALT  &mt LSHFT LANGUAGE_1  &lt 2 SPACE  &lt 6 LANGUAGE_2  &mo 8  &kp AT_SIGN  &kp BACKSPACE  &lt 4 ENTER  &kp DEL
+&kp Q             &kp W     &kp E     &kp R                 &kp T        &kp Y                                        &kp U  &lt 10 I                 &kp O          &kp P
+&kp A             &kp S     &kp D     &kp F                 &kp G        &kp H                                        &kp J  &kp K                    &kp L          &lt 7 MINUS
+&mt LEFT_SHIFT Z  &kp X     &kp C     &kp V                 &kp B        &pmw3610_horizontal_scroll_direction_toggle  &kp N  &kp M                    &kp COMMA      &kp DOT      &mt RIGHT_SHIFT SLASH
+&kp LCTRL         &kp LGUI  &kp LALT  &mt LSHFT LANGUAGE_1  &lt 2 SPACE  &lt 6 LANGUAGE_2                             &mo 8  &pmw3610_inertia_toggle  &kp BACKSPACE  &lt 4 ENTER  &kp DEL
             >;
         };
 
         Mac-Base {
             bindings = <
-&kp Q             &kp W         &kp E         &kp R                 &kp T        &kp Y             &kp U  &kp I        &kp O          &kp P
-&kp A             &kp S         &kp D         &kp F                 &kp G        &kp H             &kp J  &kp K        &kp L          &lt 7 MINUS
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                 &kp B        &mac_ime          &kp N  &kp M        &kp COMMA      &kp DOT      &mt RIGHT_SHIFT SLASH
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &mt LSHFT LANGUAGE_1  &lt 3 SPACE  &lt 6 LANGUAGE_2  &mo 8  &kp AT_SIGN  &kp BACKSPACE  &lt 5 ENTER  &kp DEL
+&kp Q             &kp W         &kp E         &kp R                 &kp T        &kp Y                             &kp U  &lt 10 I                 &kp O          &kp P
+&kp A             &kp S         &kp D         &kp F                 &kp G        &kp H                             &kp J  &kp K                    &kp L          &lt 7 MINUS
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                 &kp B        &pmw3610_scroll_direction_toggle  &kp N  &kp M                    &kp COMMA      &kp DOT      &mt RIGHT_SHIFT SLASH
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &mt LSHFT LANGUAGE_1  &lt 3 SPACE  &lt 6 LANGUAGE_2                  &mo 8  &pmw3610_inertia_toggle  &kp BACKSPACE  &lt 5 ENTER  &kp DEL
             >;
         };
 
@@ -103,7 +121,7 @@
 &kp LC(A)       &kp LC(X)     &kp LC(C)    &kp LC(V)  &kp LC(F)  &kp LESS_THAN         &kp GREATER_THAN       &kp CARET          &kp PERCENT      &kp DOLLAR
 &kp TAB         &kp LEFT_ALT  &kp LS(TAB)  &mkp MB1   &mkp MB2   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN        &kp AMPERSAND    &kp DOUBLE_QUOTES
 &kp LEFT_SHIFT  &trans        &trans       &trans     &mkp MB3   &trans                &kp LEFT_BRACKET       &kp RIGHT_BRACKET  &kp EXCLAMATION  &kp QUESTION       &kp SINGLE_QUOTE
-&kp LCTRL       &trans        &trans       &trans     &trans     &trans                &trans                 &trans             &kp BACKSPACE    &kp ENTER          &kp HASH
+&kp LCTRL       &trans        &trans       &trans     &trans     &trans                &trans                 &kp PIPE           &kp BACKSPACE    &kp ENTER          &kp HASH
             >;
         };
 
@@ -112,25 +130,25 @@
 &kp LG(A)       &kp LG(X)     &kp LG(C)    &kp LG(V)  &kp LG(F)  &kp LESS_THAN         &kp GREATER_THAN       &kp CARET          &kp PERCENT      &kp DOLLAR
 &kp TAB         &kp LEFT_GUI  &kp LS(TAB)  &mkp MB1   &mkp MB2   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN        &kp AMPERSAND    &kp DOUBLE_QUOTES
 &kp LEFT_SHIFT  &trans        &trans       &trans     &mkp MB3   &trans                &kp LEFT_BRACKET       &kp RIGHT_BRACKET  &kp EXCLAMATION  &kp QUESTION       &kp SINGLE_QUOTE
-&kp LCTRL       &trans        &trans       &trans     &trans     &trans                &trans                 &trans             &kp BACKSPACE    &kp ENTER          &kp HASH
+&kp LCTRL       &trans        &trans       &trans     &trans     &trans                &trans                 &kp PIPE           &kp BACKSPACE    &kp ENTER          &kp HASH
             >;
         };
 
         Win-Common {
             bindings = <
-&kp ESC    &trans        &trans       &kp LG(UP_ARROW)    &kp LA(UP_ARROW)     &kp LC(W)        &kp LA(LEFT_ARROW)  &mkp MB3        &kp LA(RIGHT_ARROW)  &kp HOME
-&kp TAB    &kp LEFT_ALT  &kp LS(TAB)  &kp LG(LEFT_ARROW)  &kp LG(RIGHT_ARROW)  &kp LC(PAGE_UP)  &mkp MB1            &kp UP_ARROW    &mkp MB2             &kp PAGE_UP
-&kp LSHFT  &trans        &trans       &kp LG(DOWN_ARROW)  &kp LA(DOWN_ARROW)   &kp LG(LS(S))    &kp LC(PAGE_DOWN)   &kp LEFT_ARROW  &kp DOWN_ARROW       &kp RIGHT_ARROW  &kp PAGE_DOWN
-&kp LCTRL  &trans        &trans       &trans              &trans               &trans           &trans              &kp LC(T)       &trans               &trans           &kp END
+&kp ESC    &kp LG(DOWN_ARROW)  &kp LG(UP_ARROW)     &kp LG(LC(D))           &kp LA(UP_ARROW)         &kp LC(W)        &kp LA(LEFT_ARROW)  &mkp MB3        &kp LA(RIGHT_ARROW)  &kp HOME
+&kp TAB    &kp LEFT_ALT        &kp LS(TAB)          &kp LG(LC(LEFT_ARROW))  &kp LG(LC(RIGHT_ARROW))  &kp LC(PAGE_UP)  &mkp MB1            &kp UP_ARROW    &mkp MB2             &kp PAGE_UP
+&kp LSHFT  &kp LG(LEFT_ARROW)  &kp LG(RIGHT_ARROW)  &kp LG(LC(F4))          &kp LG(TAB)              &kp LG(LS(S))    &kp LC(PAGE_DOWN)   &kp LEFT_ARROW  &kp DOWN_ARROW       &kp RIGHT_ARROW  &kp PAGE_DOWN
+&kp LCTRL  &trans              &trans               &trans                  &kp LG(E)                &trans           &trans              &kp LC(T)       &trans               &trans           &kp END
             >;
         };
 
         Mac-Common {
             bindings = <
-&kp ESC    &trans        &trans       &kp LC(UP_ARROW)    &kp LG(UP_ARROW)     &kp LG(W)             &kp LG(LEFT_ARROW)  &mkp MB3        &kp LG(RIGHT_ARROW)  &kp HOME
-&kp TAB    &kp LEFT_GUI  &kp LS(TAB)  &kp LC(LEFT_ARROW)  &kp LC(RIGHT_ARROW)  &kp LC(TAB)           &mkp MB1            &kp UP_ARROW    &mkp MB2             &kp PAGE_UP
-&kp LSHFT  &trans        &trans       &kp LC(DOWN_ARROW)  &kp LG(DOWN_ARROW)   &kp LG(LS(NUMBER_4))  &kp LS(LC(TAB))     &kp LEFT_ARROW  &kp DOWN_ARROW       &kp RIGHT_ARROW  &kp PAGE_DOWN
-&kp LCTRL  &trans        &trans       &trans              &trans               &trans                &trans              &kp LG(T)       &trans               &trans           &kp END
+&kp ESC    &trans        &kp LC(LG(F))  &kp LC(UP_ARROW)    &kp LG(UP_ARROW)     &kp LG(W)             &kp LG(LEFT_ARROW)  &mkp MB3        &kp LG(RIGHT_ARROW)  &kp HOME
+&kp TAB    &kp LEFT_GUI  &kp LS(TAB)    &kp LC(LEFT_ARROW)  &kp LC(RIGHT_ARROW)  &kp LC(LS(TAB))       &mkp MB1            &kp UP_ARROW    &mkp MB2             &kp PAGE_UP
+&kp LSHFT  &trans        &trans         &kp LC(DOWN_ARROW)  &kp LG(DOWN_ARROW)   &kp LG(LS(NUMBER_4))  &kp LC(TAB)         &kp LEFT_ARROW  &kp DOWN_ARROW       &kp RIGHT_ARROW  &kp PAGE_DOWN
+&kp LCTRL  &trans        &trans         &trans              &trans               &trans                &trans              &kp LG(T)       &trans               &trans           &kp END
             >;
         };
 
@@ -162,6 +180,15 @@
         };
 
         AML {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        Arrow {
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans

@@ -1,8 +1,30 @@
 #include "around_forty_aaa.dtsi"
+#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+
+&adc {
+    status = "okay";
+};
+
+/ {
+    chosen {
+        zmk,battery = &non_lipo_battery;
+    };
+
+    non_lipo_battery: non_lipo_battery {
+        compatible = "zmk,non-lipo-battery";
+
+        /*
+         * XIAO nRF52840 の D0 / A0 / P0.02 は
+         * nRF SAADC の AIN0 相当として扱う想定
+         */
+        io-channels = <&adc 0>;
+    };
+};
+
 &default_transform {
     col-offset = <6>;
 };
@@ -40,10 +62,8 @@
 /* 左側の listener は central 側では無効化 */
 &trackball_listener_L {
     status = "okay";
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP |
-                                           INPUT_TRANSFORM_X_INVERT |
-                                           INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_xy_scaler 1 64>,
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP)>,
+                       <&zip_xy_scaler 1 32>,
                        <&zip_xy_to_scroll_mapper>;
 };
 
@@ -67,7 +87,37 @@
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
+        inertial-scroll;
+        inertial-scroll-layers = <6 7>;
+        inertial-scroll-gain-pct = <130>;
+        inertial-scroll-decay-pct = <99>;
+        inertial-scroll-interval-ms = <10>;
+        inertial-scroll-threshold = <4>;
+        motion-threshold = <1>;
         force-awake;
+    };
+};
+
+/ {
+    /* X軸の移動量を強制的に0にするプロセッサ（垂直スクロール限定モード用） */
+    zip_x_scaler_zero: zip_x_scaler_zero {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>;
+    };
+
+    zip_keybind_arrows: zip_keybind_arrows {
+        compatible = "zmk,input-processor-keybind";
+        #input-processor-cells = <0>;
+        bindings =
+            <&kp RIGHT_ARROW>,
+            <&kp LEFT_ARROW>,
+            <&kp UP_ARROW>,
+            <&kp DOWN_ARROW>;
+        tick = <10>;
+        wait-ms = <5>;
+        tap-ms = <5>;
     };
 };
 
@@ -77,6 +127,36 @@
     device = <&trackball_R>;
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
                        <&zip_xy_scaler 1 1>;
+
+    /* レイヤー 2, 3 はスローカーソル動作 (RBに合わせて 1/2) */
+    slow-cursor-layer {
+        layers = <2 3>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                           <&zip_xy_scaler 1 2>;
+    };
+
+    /* レイヤー 6 は通常スクロール動作 */
+    scroll-layer {
+        layers = <6>;
+        input-processors = <&zip_xy_to_scroll_mapper>,
+                           <&zip_scroll_scaler 1 48>;
+    };
+
+    /* レイヤー 7 は縦限定スクロール動作 */
+    v-scroll-layer {
+        layers = <7>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                           <&zip_x_scaler_zero 0 1>,
+                           <&zip_xy_to_scroll_mapper>,
+                           <&zip_scroll_scaler 1 48>;
+    };
+
+    /* レイヤー 10 はトラックボールを矢印キー入力として扱う */
+    arrows {
+        layers = <10>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                           <&zip_keybind_arrows>;
+    };
 };
 
 &adc {

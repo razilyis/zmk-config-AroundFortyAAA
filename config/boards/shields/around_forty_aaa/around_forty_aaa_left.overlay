@@ -32,8 +32,6 @@
     };
 };
 
-
-
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -52,6 +50,9 @@
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
+        motion-threshold = <1>;
+        max-motion-delta = <128>;
+        max-report-delta = <128>;
         force-awake;
     };
 };
@@ -61,8 +62,24 @@
     device = <&trackball_L>;
 };
 
-
-
 &adc {
     status = "okay";
+};
+
+/ {
+    chosen {
+        zmk,battery = &non_lipo_battery;
+    };
+
+    non_lipo_battery: non_lipo_battery {
+        compatible = "zmk,non-lipo-battery";
+
+        /*
+         * XIAO nRF52840 D0 / A0 / P0.02
+         * nRF SAADC AIN0 想定
+         *
+         * INPUT_VOLTAGE_L が D0 / A0 に接続されている前提。
+         */
+        io-channels = <&adc 0>;
+    };
 };
